@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { uploadFile } from "../service/UploadFileService";
 import { useNavigate } from "react-router-dom";
+import { createUserWorkspaceService } from "../service/workspace";
 const UploadFile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
@@ -14,10 +15,18 @@ const UploadFile = () => {
     const formData = new FormData();
     formData.append("xl-file", selectedFile);
     const result = await uploadFile(formData);
+
+    //create workspace 
+    const payload = {
+      'name' : new Date().getMilliseconds().toString(),
+      'file' : result?.data?.fileId
+    }
+    const workspace = await createUserWorkspaceService(payload)
+    const workspaceID = workspace?._id
     console.log(result)
     if (result.success === true) {
       const fileId = result?.data?.fileId;
-      navigate("/dashboard/eda/" + fileId,{state:{filePath:result?.data?.filePath}});
+      navigate(`/dashboard/${workspaceID}/eda/`,{state:{filePath:result?.data?.filePath}});
     } else {
       alert("file not uploaed");
     }

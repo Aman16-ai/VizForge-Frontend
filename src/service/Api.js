@@ -9,3 +9,8 @@ export const LOGIN_API = BASE_URL + "/auth/login/"
 export const REGISTER_API = BASE_URL + "/auth/register/"
 
 export const USER_API = BASE_URL + "/user"
+
+
+export const CREATE_WORKSPACE_API = BASE_URL + "/createWorkspace/"
+export const GET_USER_ALL_WORKSPACE_API = BASE_URL + "/getUserAllWorkspace"
+export const GET_USER_WORKSPACE_BY_ID_API = BASE_URL + "/workspace/"

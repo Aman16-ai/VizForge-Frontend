@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import PreviewTable from './PreviewTable'
 import { useLocation, useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { getUserWorkspaceByIdService } from '../../service/workspace'
 
+// now i have workspace id so i will fetch the file id and file path using workspace and remove the file if from the urls
 // file_path : "http://localhost:5000/uploads/excel-files/1715310467058crop_production.xlsx",
 export default function EDAPage() {
     const [metaData,setMetaData] = useState({})
     const [attribute,setAttributes] = useState([])
-    const {fileId} = useParams()
+    const [workspace,setWorkspace] = useState(null)
+    const {fileId,workspaceID} = useParams()
     const {state} = useLocation()
     console.log('path --------> ',state)
     function cleanUrl(url) {
@@ -23,8 +26,9 @@ export default function EDAPage() {
     const navigate = useNavigate()
     const fetchMetaData = async() => {
         try {
+            
             const payload = {
-                file_path : cleanUrl("http://localhost:5000/"+state.filePath),
+                file_path : cleanUrl("http://localhost:5000/"+workspace?.file?.path),
                 prompt : "meta data"
             }
             const url = "http://127.0.0.1:8000/fetchFileMetaData/"
@@ -46,14 +50,30 @@ export default function EDAPage() {
             console.log(err)
         }
     }
+
+    const getWorkspace = async() => {
+        try {
+            const ws = await getUserWorkspaceByIdService(workspaceID)
+            setWorkspace(ws)
+        }
+        catch(err) {
+            console.log(err.toString())
+        }
+    }
     useEffect(() => {
-        fetchMetaData()
+        // fetchMetaData()
+        getWorkspace()
     },[])
+    useEffect(() => {
+        if(workspace !== null) {
+            fetchMetaData()
+        }
+    },[workspace])
     useEffect(() => {
         console.log(metaData)
     },[metaData])
     const handleClick = () => {
-        navigate("/dashboard/vizulisation/" + fileId)
+        navigate(`/dashboard/${workspaceID}/vizulisation/` + workspace?.file?._id)
     }
   return (
     <div>

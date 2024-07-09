@@ -37,11 +37,11 @@ function App() {
           element : <Workspaces/>
         },
         {
-          path:"/dashboard/eda/:fileId",
+          path:"/dashboard/:workspaceID/eda/",
           element:<EDAPage/>
         },
         {
-          path:"/dashboard/vizulisation/:fileId",
+          path:"/dashboard/:workspaceID/vizulisation/:fileId",
           element:<VizulisationDashboard/>,
           children : [
             {

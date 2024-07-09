@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SideToolbar from "../Components/Visualization/SideToolBar";
 import { Outlet, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -9,21 +9,37 @@ import { generateChartService } from "../service/AnaylsisService";
 import { setChartOptions } from "../store/Visualization/ChartSlice";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { BASE_URL } from "../service/Api";
+import { getUserWorkspaceByIdService } from "../service/workspace";
 export default function VizulisationDashboard() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { xaxis, yaxis } = useSelector(selectAttributes);
-  const {fileId} = useParams()
-  const handleGenerateButton =async(e) => {
+  const { fileId,workspaceID } = useParams();
+  const [workspace,setWorkspace] = useState(null)
+  const handleGenerateButton = async (e) => {
     const payload = {
-      fileId: fileId,
+      fileId: workspace?.file?._id,
       attributeX: xaxis,
       attributeY: yaxis,
       type: "bar",
     };
-    const result = await generateChartService(payload)
-    console.log('chart options -> ',result.options)
-    dispatch(setChartOptions(result.options))
+    const result = await generateChartService(payload);
+    console.log("chart options -> ", result.options);
+    dispatch(setChartOptions(result.options));
   };
+
+  const getWorkspace = async () => {
+    try {
+      const ws = await getUserWorkspaceByIdService(workspaceID);
+      setWorkspace(ws);
+      console.log('ws',ws)
+    } catch (err) {
+      console.log(err.toString());
+    }
+  };
+  useEffect(() => {
+    // fetchMetaData()
+    getWorkspace();
+  }, []);
 
   // useEffect(() => {
   //   if(xaxis !== "" && yaxis !== "") {
@@ -33,7 +49,7 @@ export default function VizulisationDashboard() {
   //       attributeY: yaxis,
   //       type: "bar",
   //     };
-      
+
   //     const eventSource = new EventSource(`${BASE_URL}/analysis/streamData?fileId=${fileId}&attributeX=${xaxis}&attributeY=${yaxis}`)
   //     eventSource.onmessage = (event) => {
   //       console.log(JSON.parse(event.data))
