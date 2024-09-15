@@ -3,11 +3,15 @@ import alertReducer from "./alertSlice";
 import attributesReducer from "./Visualization/attributesSlice";
 import chartReducer from "./Visualization/ChartSlice";
 import userReducer from "./User/userSlice";
+import chartTabReducer from "./Visualization/ChartsTabSlice"
+import workspaceReducer from "./workspace/workspaceSlice";
 export const store = configureStore({
     reducer: {
         alert : alertReducer,
         attributes:attributesReducer,
         chart:chartReducer,
-        user : userReducer
+        user : userReducer,
+        chartTab : chartTabReducer,
+        workspace : workspaceReducer
     }
 })

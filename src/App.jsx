@@ -22,6 +22,8 @@ import EDAPage from './Pages/EDA/EDAPage';
 import Landing from './Pages/Landing';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuthenticated, selectUserData, setIsAuthenticated, userDetailsThunk } from './store/User/userSlice';
+import Workspace from './Pages/workspace/Workspace';
+import WorkspaceLayout from './Components/WorkspaceLayout';
 
 function App() {
   const dispatch = useDispatch()
@@ -36,12 +38,19 @@ function App() {
           index : true,
           element : <Workspaces/>
         },
+         
+      ]
+    },
+    {
+      path : "/w/:workspaceID",
+      element:<WorkspaceLayout/>,
+      children : [
         {
-          path:"/dashboard/:workspaceID/eda/",
+          path:"eda",
           element:<EDAPage/>
         },
         {
-          path:"/dashboard/:workspaceID/vizulisation/:fileId",
+          path:"vizulisation/:fileId",
           element:<VizulisationDashboard/>,
           children : [
             {

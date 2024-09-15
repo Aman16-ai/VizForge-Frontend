@@ -73,7 +73,7 @@ export default function EDAPage() {
         console.log(metaData)
     },[metaData])
     const handleClick = () => {
-        navigate(`/dashboard/${workspaceID}/vizulisation/` + workspace?.file?._id)
+        navigate(`/w/${workspaceID}/vizulisation/` + workspace?.file?._id)
     }
   return (
     <div>
@@ -81,7 +81,6 @@ export default function EDAPage() {
             ('head' in metaData) ? <div className='flex flex-col'>
                 <div className='w-full bg-white p-2 items-center flex justify-between mb-2'>
                 <h3 className='font-bold'>Dataset Preview</h3>
-                <button className='bg-gray-700 text-white p-2 rounded-md' onClick={handleClick}>Visulization</button>
                 </div>
                 <PreviewTable attributes={attribute} data={metaData?.head}/>
                 <div className='w-full flex flex-col justify-center h-auto p-2 shadow-md mt-5 bg-white'>

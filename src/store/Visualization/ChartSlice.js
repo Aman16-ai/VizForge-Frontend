@@ -4,8 +4,9 @@ export const chartSlice = createSlice({
     name:"chart",
     initialState : {
         options : {
-            xaxis : "",
-            yaxis : "",
+            xaxis : {},
+            yaxis : {},
+            
         },
         type: "bar"
     },

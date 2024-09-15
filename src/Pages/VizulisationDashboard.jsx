@@ -10,8 +10,10 @@ import { setChartOptions } from "../store/Visualization/ChartSlice";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { BASE_URL } from "../service/Api";
 import { getUserWorkspaceByIdService } from "../service/workspace";
+import { selectSelectedChartTab } from "../store/Visualization/ChartsTabSlice";
 export default function VizulisationDashboard() {
   const dispatch = useDispatch();
+  const selectedChartType = useSelector(selectSelectedChartTab)
   const { xaxis, yaxis } = useSelector(selectAttributes);
   const { fileId,workspaceID } = useParams();
   const [workspace,setWorkspace] = useState(null)
@@ -20,7 +22,7 @@ export default function VizulisationDashboard() {
       fileId: workspace?.file?._id,
       attributeX: xaxis,
       attributeY: yaxis,
-      type: "bar",
+      type: selectedChartType,
     };
     const result = await generateChartService(payload);
     console.log("chart options -> ", result.options);

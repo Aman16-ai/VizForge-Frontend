@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectChartOptions } from '../../store/Visualization/ChartSlice'
 export default function ChartCanvas() {
     const options = useSelector(selectChartOptions)
+    console.log('canvas options ----> ',options)
     // const [option,setOptions] = useState({ xAxis: {
     //     type: 'category',
     //     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','Ho',"NO"],
