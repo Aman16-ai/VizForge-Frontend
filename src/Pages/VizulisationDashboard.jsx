@@ -11,29 +11,49 @@ import { EventSourcePolyfill } from "event-source-polyfill";
 import { BASE_URL } from "../service/Api";
 import { getUserWorkspaceByIdService } from "../service/workspace";
 import { selectSelectedChartTab } from "../store/Visualization/ChartsTabSlice";
+import MaterialSelect from "../Components/ui/MaterialSelect";
+
+const typesOfAggregation = {
+  categorical: [
+    { key: "value", value: "Value" },
+    { key: "count", value: "Count" },
+    { key: "distinct", value: "Distinct Count" },
+  ],
+  numerical: [
+    { key: "sum", value: "Sum" },
+    { key: "count", value: "Count" },
+    { key: "min", value: "Minimum" },
+    { key: "max", value: "Maximum" },
+    { key: "avg", value: "Average" },
+    { key: "median", value: "Median" },
+  ],
+};
 export default function VizulisationDashboard() {
+  const [xAggreationValue, setXAggreationValue] = useState('value');
+  const [yAggreationValue, setYAggreationValue] = useState('sum');
   const dispatch = useDispatch();
-  const selectedChartType = useSelector(selectSelectedChartTab)
+  const selectedChartType = useSelector(selectSelectedChartTab);
   const { xaxis, yaxis } = useSelector(selectAttributes);
-  const { fileId,workspaceID } = useParams();
-  const [workspace,setWorkspace] = useState(null)
+  const { fileId, workspaceID } = useParams();
+  const [workspace, setWorkspace] = useState(null);
   const handleGenerateButton = async (e) => {
     const payload = {
       fileId: workspace?.file?._id,
       attributeX: xaxis,
       attributeY: yaxis,
+      aggregationX:xAggreationValue,
+      aggregationY:yAggreationValue,
       type: selectedChartType,
     };
     const result = await generateChartService(payload);
     console.log("chart options -> ", result.options);
     dispatch(setChartOptions(result.options));
   };
-
   const getWorkspace = async () => {
     try {
       const ws = await getUserWorkspaceByIdService(workspaceID);
       setWorkspace(ws);
-      console.log('ws',ws)
+      console.log("ws", ws);
     } catch (err) {
       console.log(err.toString());
     }
@@ -63,13 +83,24 @@ export default function VizulisationDashboard() {
       <SideToolbar />
       <div className="w-full h-full ml-5 shadow-2xl flex flex-col">
         <div className="w-full h-[50px] flex items-center shadow-md justify-between">
-          <div className="ml-2 flex">
-            <h4>
+          <div className="ml-2 w-[35%] flex justify-between">
+            {/* <h4>
               X-Axis : <span className="font-semibold">{xaxis}</span>
-            </h4>
-            <h4 className="ml-2">
-              Y-Axis : <span className="font-semibold">{yaxis}</span>
-            </h4>
+            </h4> */}
+            <MaterialSelect
+              key={"x-axis select"}
+              label={"X-Axis" + " : " + xaxis}
+              items={typesOfAggregation.categorical}
+              value={xAggreationValue}
+              setValue={setXAggreationValue}
+            />
+            <MaterialSelect
+              key={"y-axis select"}
+              label={"Y-Axis" + " : " + yaxis}
+              items={typesOfAggregation.numerical}
+              value={yAggreationValue}
+              setValue={setYAggreationValue}
+            />
           </div>
           <Button
             variant="contained"

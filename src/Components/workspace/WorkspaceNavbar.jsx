@@ -4,7 +4,7 @@ import { getUserWorkspaceByIdService, updateUserWorkspace } from "../../service/
 import { useSelector } from "react-redux";
 import { selectWorkspace } from "../../store/workspace/workspaceSlice";
 import useDebounce from "../../hooks/useDebounce";
-
+import lo from "../../assets/lo3.png"
 function WorkspaceNavbar() {
   const [activeTab, setActiveTab] = useState("feature-engineering");
   const [name,setName] = useState('')
@@ -40,7 +40,7 @@ function WorkspaceNavbar() {
       <div className="flex items-center">
         <img
           className="h-8 w-8"
-          src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+          src={lo}
           alt="Workflow"
           onClick={e => navigate("/dashboard/")}
         />
