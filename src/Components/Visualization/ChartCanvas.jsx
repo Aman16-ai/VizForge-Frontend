@@ -25,7 +25,7 @@ export default function ChartCanvas() {
     //   ]})
   return (
     <>
-        {options?<ReactEChart style={{height:"100%"}} option={options}/>:null}
+        {options?<ReactEChart style={{height:"90%"}} option={options}/>:null}
     </>
   )
 }

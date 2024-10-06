@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { selectIsAuthenticated } from "../store/User/userSlice";
-
+import lo from "../assets/lo3.png"
 export default function NavBar() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -79,7 +79,7 @@ export default function NavBar() {
         <div className="flex-shrink-0">
           <img
             className="h-8 w-8"
-            src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+            src={lo}
             alt="Workflow"
           />
         </div>

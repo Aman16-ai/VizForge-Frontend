@@ -1,5 +1,5 @@
-// export const BASE_URL = "http://localhost:5000"
-export const BASE_URL = "https://viz-forge-backend.vercel.app"
+export const BASE_URL = "http://localhost:5000"
+// export const BASE_URL = "https://viz-forge-backend.vercel.app"
 export const AUTOMATION_BASE_URL = "http://127.0.0.1:8000"
 
 export const uploadFileApi = BASE_URL + "/file/uploadFile/"
