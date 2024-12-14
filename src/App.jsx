@@ -23,7 +23,7 @@ import Landing from './Pages/Landing';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuthenticated, selectUserData, setIsAuthenticated, userDetailsThunk } from './store/User/userSlice';
 import Workspace from './Pages/workspace/Workspace';
-import WorkspaceLayout from './Components/WorkspaceLayout';
+import WorkspaceLayout from './Components/workspace/WorkspaceLayout';
 
 function App() {
   const dispatch = useDispatch()

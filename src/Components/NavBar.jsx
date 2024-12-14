@@ -67,7 +67,7 @@ export default function NavBar() {
       'bg' : "bg-gray-800",
       'text': "text-white"
     }
-    if(!url) {
+    if(false) {
       colors['bg'] = "bg-white";
       colors['text'] = 'text-black'
     }

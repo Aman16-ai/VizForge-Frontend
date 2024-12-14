@@ -17,11 +17,15 @@ export const userSlice = createSlice({
     name:"user",
     initialState : {
         userData : {},
-        isAuthenticated : false
+        isAuthenticated : false,
+        sessionId : null
     },
     reducers : {
         setIsAuthenticated : (state,action) => {
             state.isAuthenticated = action.payload
+        },
+        setSessionId : (state,action) => {
+            state.sessionId = action.payload
         }
     },
     extraReducers : {
@@ -37,7 +41,8 @@ export const userSlice = createSlice({
     }
 })
 
-export const {setIsAuthenticated} = userSlice.actions
+export const {setIsAuthenticated,setSessionId} = userSlice.actions
 export const selectUserData = (state) => state.user.userData
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated
+export const selectSessionId = (state) => state.user.sessionId
 export default userSlice.reducer
