@@ -4,7 +4,9 @@ import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getUserWorkspaceByIdService } from "../../service/workspace";
 import PromptSearchBar from "../../Components/Prompt/PromptSearchBar";
-
+import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
+import { selectSessionId } from "../../store/User/userSlice";
 // now i have workspace id so i will fetch the file id and file path using workspace and remove the file if from the urls
 // file_path : "http://localhost:5000/uploads/excel-files/1715310467058crop_production.xlsx",
 export default function EDAPage() {
@@ -13,6 +15,7 @@ export default function EDAPage() {
   const [workspace, setWorkspace] = useState(null);
   const { fileId, workspaceID } = useParams();
   const { state } = useLocation();
+  const sessionId = useSelector(selectSessionId)
   console.log("path --------> ", state);
   function cleanUrl(url) {
     // Use the URL constructor to parse the URL
@@ -25,20 +28,14 @@ export default function EDAPage() {
     return parsedUrl.toString();
   }
   const navigate = useNavigate();
+
+
   const fetchMetaData = async () => {
     try {
-      const payload = {
-        file_path: cleanUrl("http://localhost:5000/" + workspace?.file?.path),
-        prompt: "meta data",
-      };
-      const url = "http://127.0.0.1:8000/fetchFileMetaData/";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+
+      console.log("session_id --------------", sessionId);
+      const url = "http://127.0.0.1:8000/fetchFileMetaData/"+sessionId;
+      const response = await fetch(url);
       const data = await response.json();
       const obj = data?.message.head[0];
       const attributes = Object.keys(obj);
@@ -64,7 +61,8 @@ export default function EDAPage() {
   }, []);
   useEffect(() => {
     if (workspace !== null) {
-      fetchMetaData();
+      // fetchMetaData();
+      fetchMetaData()
     }
   }, [workspace]);
   useEffect(() => {
