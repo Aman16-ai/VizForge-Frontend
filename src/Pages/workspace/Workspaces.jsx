@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-import WorkspaceCard from "../Components/workspace/WorkspaceCard";
-import img from "../assets/bg.jpg"
-import { getUserAllWorkspaceService } from "../service/workspace";
+import WorkspaceCard from "../../Components/workspace/WorkspaceCard";
+import img from "../../assets/bg.jpg"
+import { getUserAllWorkspaceService } from "../../service/workspace";
+import { useDispatch,useSelector } from "react-redux";
+import { addAllWorkspaces, selectWorkspaces } from "../../store/workspace/workspacesSlice";
 export default function Workspaces() {
   const navigate = useNavigate()
-  const [workspaces,setWorkspaces] = useState([])
+  const dispatch = useDispatch()
+  const workspaces = useSelector(selectWorkspaces)
   const getAllWorkspaces = async() => {
     try {
       const allworks = await getUserAllWorkspaceService()
-      setWorkspaces(allworks)
+      dispatch(addAllWorkspaces(allworks))
     }
     catch(err) {
       alert(err)

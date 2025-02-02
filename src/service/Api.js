@@ -18,6 +18,7 @@ export const USER_API = BASE_URL + "/user"
 
 export const CREATE_WORKSPACE_API = BASE_URL + "/createWorkspace/"
 export const GET_USER_ALL_WORKSPACE_API = BASE_URL + "/getUserAllWorkspace"
-export const GET_USER_WORKSPACE_BY_ID_API = BASE_URL + "/workspace/"
+export const WORKSPACE_API = BASE_URL + "/workspace/"
+
 
 export const PERFORM_AUTO_FE_API = AUTOMATION_BASE_URL + "/performFE/"

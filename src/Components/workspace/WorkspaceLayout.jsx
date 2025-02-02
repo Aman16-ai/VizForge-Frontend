@@ -17,8 +17,11 @@ import CircularSpinner from "../ui/CircularSpinner";
 import { setSessionId } from "../../store/User/userSlice";
 
 import { FaPlus, FaEllipsisH } from 'react-icons/fa';
+import { GoPlus } from "react-icons/go";
 import { CiSquarePlus, CiFileOn,CiViewTable,CiDatabase   } from "react-icons/ci";
 import { PiChartLineUp } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
+import WorkSpaceSideNavBar from "./WorkspaceSideNavBar";
 export default function WorkspaceLayout() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -55,7 +58,7 @@ export default function WorkspaceLayout() {
           <div className="w-auto h-auto">
             <WorkspaceNavbar />
           </div>
-          <div className="w-full h-[90%] flex">
+          <div className="w-full h-[93%] flex">
             <div className="w-auto h-auto border-t-2">
               <WorkSpaceSideNavBar/>
 
@@ -90,63 +93,66 @@ const SetupWorkspace = () => {
   );
 };
 
-const WorkSpaceSideNavBar = () => {
-  const [activeTab, setActiveTab] = useState('Explorer');
+// const WorkSpaceSideNavBar = () => {
+//   const [activeTab, setActiveTab] = useState('Explorer');
+//   const navigate = useNavigate()
+//   const handleTabClick = (tab) => {
+//     if(tab === 'Explorer') {
+//       navigate('')
+//     }
+//     setActiveTab(tab);
+//   };
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
-
-  return (
-    <div className="bg-gray-800 text-white h-screen w-[5vw] px-4 py-6 flex flex-col justify-between items-center">
-      <div>
-        <div className="mb-6 h-10 flex flex-col items-center justify-center bg-blue-500">
-          <CiSquarePlus className="text-2xl" />
-        </div>
-        <nav>
-          <ul className="space-y-6">
-            <li
-              className={`cursor-pointer flex flex-col items-center ${
-                activeTab === 'Explorer' ? 'text-blue-500' : ''
-              }`}
-              onClick={() => handleTabClick('Explorer')}
-            >
-              <CiFileOn className="text-xl" />
-              <span className="text-xs mt-1">Explorer</span>
-            </li>
-            <li
-              className={`cursor-pointer flex flex-col items-center ${
-                activeTab === 'Dashboards' ? 'text-blue-500' : ''
-              }`}
-              onClick={() => handleTabClick('Dashboards')}
-            >
-              <CiViewTable className="text-xl" />
-              <span className="text-xs mt-1">Dashboards</span>
-            </li>
-            <li
-              className={`cursor-pointer flex flex-col items-center ${
-                activeTab === 'Reports' ? 'text-blue-500' : ''
-              }`}
-              onClick={() => handleTabClick('Reports')}
-            >
-              <PiChartLineUp className="text-xl" />
-              <span className="text-xs mt-1">Reports</span>
-            </li>
-            <li
-              className={`cursor-pointer flex flex-col items-center ${
-                activeTab === 'Data' ? 'text-blue-500' : ''
-              }`}
-              onClick={() => handleTabClick('Data')}
-            >
-              <CiDatabase  className="text-xl" />
-              <span className="text-xs mt-1">Data</span>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div>
-        <FaEllipsisH className="text-xl cursor-pointer" />
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="bg-black text-white h-full w-[5vw] py-6 flex flex-col justify-between items-center">
+//       <div className="w-full flex flex-col items-center">
+//         <div className="mb-6 h-10 w-14 flex flex-col items-center justify-center bg-blue-500">
+//           <GoPlus className="text-2xl" />
+//         </div>
+//         <nav className="w-full">
+//           <ul className="space-y-4 m-1">
+//             <li
+//               className={`cursor-pointer p-2 flex flex-col items-center ${
+//                 activeTab === 'Explorer' ? 'bg-blue-500 rounded-md' : ''
+//               }`}
+//               onClick={() => handleTabClick('Explorer')}
+//             >
+//               <CiFileOn className="text-xl" />
+//               <span className="text-xs mt-1">Explorer</span>
+//             </li>
+//             <li
+//               className={`w-full p-2 cursor-pointer flex flex-col items-center ${
+//                 activeTab === 'Dashboards' ? 'bg-blue-500 rounded-md' : ''
+//               }`}
+//               onClick={() => handleTabClick('Dashboards')}
+//             >
+//               <CiViewTable className="text-xl" />
+//               <span className="text-xs mt-1">Dashboards</span>
+//             </li>
+//             <li
+//               className={`cursor-pointer p-2 flex flex-col items-center ${
+//                 activeTab === 'Reports' ? 'bg-blue-500 rounded-md' : ''
+//               }`}
+//               onClick={() => handleTabClick('Reports')}
+//             >
+//               <PiChartLineUp className="text-xl" />
+//               <span className="text-xs mt-1">Reports</span>
+//             </li>
+//             <li
+//               className={`cursor-pointer p-2 flex flex-col items-center ${
+//                 activeTab === 'Data' ? 'bg-blue-500 rounded-md' : ''
+//               }`}
+//               onClick={() => handleTabClick('Data')}
+//             >
+//               <CiDatabase  className="text-xl" />
+//               <span className="text-xs mt-1">Data</span>
+//             </li>
+//           </ul>
+//         </nav>
+//       </div>
+//       <div>
+//         <FaEllipsisH className="text-xl cursor-pointer" />
+//       </div>
+//     </div>
+//   );
+// };

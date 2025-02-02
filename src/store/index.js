@@ -5,6 +5,7 @@ import chartReducer from "./Visualization/ChartSlice";
 import userReducer from "./User/userSlice";
 import chartTabReducer from "./Visualization/ChartsTabSlice"
 import workspaceReducer from "./workspace/workspaceSlice";
+import workspacesReducer from "./workspace/workspacesSlice";
 export const store = configureStore({
     reducer: {
         alert : alertReducer,
@@ -12,6 +13,7 @@ export const store = configureStore({
         chart:chartReducer,
         user : userReducer,
         chartTab : chartTabReducer,
-        workspace : workspaceReducer
+        workspace : workspaceReducer,
+        workspaces : workspacesReducer
     }
 })

@@ -7,7 +7,7 @@ export const alertSlice = createSlice({
       severity: "success",
       variant: "filled",
       open: false,
-      message: "",
+      message: "workspace deleted successfully",
     },
   },
   reducers: {
