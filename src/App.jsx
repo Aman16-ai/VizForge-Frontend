@@ -10,7 +10,7 @@ import {
 import Layout from './Components/Layout';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
-import Workspaces from './Pages/Workspaces';
+import Workspaces from './Pages/workspace/Workspaces';
 import UploadFile from './Pages/UploadFile';
 import VizulisationDashboard from './Pages/VizulisationDashboard';
 import Attributes from './Pages/Visualization/Attributes';
@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuthenticated, selectUserData, setIsAuthenticated, userDetailsThunk } from './store/User/userSlice';
 import Workspace from './Pages/workspace/Workspace';
 import WorkspaceLayout from './Components/workspace/WorkspaceLayout';
+import Explore from './Pages/workspace/Explore';
 
 function App() {
   const dispatch = useDispatch()
@@ -70,6 +71,10 @@ function App() {
               element:<Filters/>
             }
           ]
+        },
+        {
+          index:true,
+          element:<Explore/>
         }
       ]
     },

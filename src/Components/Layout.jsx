@@ -31,7 +31,7 @@ export default function Layout() {
         </div>
         <div className="w-full h-full p-5 overflow-y-scroll">
           <Outlet />
-          <div className="w-auto h-auto absolute right-0 bottom-2 mr-2 fixed">
+          <div className="w-auto h-auto absolute right-0 top-[10%] mr-2 fixed">
             {open ? <Alert variant={variant} severity={severity}>
                 {message}
               </Alert>:null}

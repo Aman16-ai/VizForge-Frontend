@@ -9,6 +9,7 @@ import { MdOutlineShare } from "react-icons/md";
 import { PiExport } from "react-icons/pi";
 import { BiComment } from "react-icons/bi";
 import { IoMdMore } from "react-icons/io";
+import { ThreeDotsMenu } from "../ui/ThreeDotsMenu";
 function WorkspaceNavbar() {
   const [activeTab, setActiveTab] = useState("feature-engineering");
   const [name, setName] = useState('');
@@ -17,6 +18,12 @@ function WorkspaceNavbar() {
   const { workspaceID } = useParams();
   const workspace = useSelector(selectWorkspace)
 
+  
+  const menuItems = [
+    { label: 'Edit', onClick: () => console.log('Edit clicked') },
+    { label: 'Delete', onClick: () => console.log('Delete clicked') },
+    { label: 'Settings', onClick: () => console.log('Settings clicked') }
+  ];
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     if (tab === "visualization") {
@@ -105,7 +112,8 @@ function WorkspaceNavbar() {
         <MdOutlineShare size={28} className=" text-white hover:text-white hover:cursor-pointer"/>
         <PiExport size={28} className="text-white hover:text-white hover:cursor-pointer" />
         <BiComment size={28} className="text-white hover:text-white hover:cursor-pointer" />
-        <IoMdMore size={28} className="text-white hover:text-white hover:cursor-pointer" />
+        {/* <IoMdMore size={28} className="text-white hover:text-white hover:cursor-pointer" /> */}
+        <ThreeDotsMenu items={menuItems} />
       </div>
     </div>
   );
