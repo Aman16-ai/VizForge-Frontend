@@ -6,6 +6,7 @@ import userReducer from "./User/userSlice";
 import chartTabReducer from "./Visualization/ChartsTabSlice"
 import workspaceReducer from "./workspace/workspaceSlice";
 import workspacesReducer from "./workspace/workspacesSlice";
+import GlobalModalReducer from "./workspace/GlobalModalSlice";
 export const store = configureStore({
     reducer: {
         alert : alertReducer,
@@ -14,6 +15,7 @@ export const store = configureStore({
         user : userReducer,
         chartTab : chartTabReducer,
         workspace : workspaceReducer,
-        workspaces : workspacesReducer
+        workspaces : workspacesReducer,
+        globalModal : GlobalModalReducer
     }
 })

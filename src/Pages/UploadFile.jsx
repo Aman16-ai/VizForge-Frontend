@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import { uploadFile } from "../service/UploadFileService";
 import { useNavigate } from "react-router-dom";
 import { createUserWorkspaceService } from "../service/workspace";
+import CircularSpinner from "../Components/ui/CircularSpinner";
+import { closeAlert, selectAlertOptions, updateAlert } from "../store/alertSlice";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Alert } from "@mui/material";
 const UploadFile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+  const { open, severity, variant, message } = useSelector(selectAlertOptions);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -11,24 +19,48 @@ const UploadFile = () => {
 
   const handleUpload = async () => {
     // Your upload logic here
-    console.log("Uploading file:", selectedFile);
-    const formData = new FormData();
-    formData.append("xl-file", selectedFile);
-    const result = await uploadFile(formData);
+    try {
+      setLoading(true);
+      console.log("Uploading file:", selectedFile);
+      const formData = new FormData();
+      formData.append("xl-file", selectedFile);
+      const result = await uploadFile(formData);
 
-    //create workspace 
-    const payload = {
-      'name' : new Date().getMilliseconds().toString(),
-      'file' : result?.data?.fileId
-    }
-    const workspace = await createUserWorkspaceService(payload)
-    const workspaceID = workspace?._id
-    console.log(result)
-    if (result.success === true) {
-      const fileId = result?.data?.fileId;
-      navigate(`/dashboard/${workspaceID}/eda/`,{state:{filePath:result?.data?.filePath}});
-    } else {
-      alert("file not uploaed");
+      //create workspace
+      const payload = {
+        name: new Date().getMilliseconds().toString(),
+        file: result?.data?.fileId,
+      };
+      const workspace = await createUserWorkspaceService(payload);
+      const workspaceID = workspace?._id;
+      console.log(result);
+      if (result.success === true) {
+        const fileId = result?.data?.fileId;
+        navigate(`/dashboard/${workspaceID}/eda/`, {
+          state: { filePath: result?.data?.filePath },
+        });
+        dispatch(
+          updateAlert({
+            open: true,
+            severity: "success",
+            message: "Workspace created successfully",
+          })
+        );
+      } else {
+        throw new Error("File not uploaded successfully");
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(
+        updateAlert({
+          open: true,
+          severity: "error",
+          message: "Workspace not created successfully",
+        })
+      );
+    } finally {
+      setLoading(false);
+      dispatch(closeAlert())
     }
   };
 
@@ -52,12 +84,23 @@ const UploadFile = () => {
             Selected File: {selectedFile.name}
           </div>
         )}
-        <button
-          onClick={handleUpload}
-          className="w-[196px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
-        >
-          Upload
-        </button>
+        {!isLoading ? (
+          <button
+            onClick={handleUpload}
+            className="w-[196px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+          >
+            Upload
+          </button>
+        ) : (
+          <CircularSpinner />
+        )}
+      </div>
+      <div className="w-auto h-auto absolute right-0 top-[10%] mr-2 fixed">
+        {open ? (
+          <Alert variant={variant} severity={severity}>
+            {message}
+          </Alert>
+        ) : null}
       </div>
     </div>
   );

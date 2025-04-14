@@ -88,14 +88,7 @@ function WorkspaceNavbar() {
           >
             Feature Engineering
           </button>
-          <button
-            className={`text-gray-400 ${
-              activeTab === "visualization" ? "border-b-2 border-white" : ""
-            }`}
-            onClick={() => handleTabClick("visualization")}
-          >
-            Visualization
-          </button>
+          
           <button
             className={`text-gray-400 ${
               activeTab === "model-training" ? "border-b-2 border-white" : ""
