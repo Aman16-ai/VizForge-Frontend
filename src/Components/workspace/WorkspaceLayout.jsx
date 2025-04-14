@@ -22,6 +22,7 @@ import { CiSquarePlus, CiFileOn,CiViewTable,CiDatabase   } from "react-icons/ci"
 import { PiChartLineUp } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import WorkSpaceSideNavBar from "./WorkspaceSideNavBar";
+import GlobalModal from "./GlobalModal";
 export default function WorkspaceLayout() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ export default function WorkspaceLayout() {
 
             </div>
             <div className="w-full h-full p-5 overflow-y-scroll">
+              <GlobalModal/>
               <Outlet />
               <div className="w-auto h-auto absolute right-0 bottom-2 mr-2 fixed">
                 {open ? (

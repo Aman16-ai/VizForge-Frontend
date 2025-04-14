@@ -16,9 +16,15 @@ export const alertSlice = createSlice({
       state.options = { ...state.options, ...action.payload };
       console.log("state ----------> ", state);
     },
+
+    closeAlert: (state) => {
+      setTimeout(() => {
+        state.options = {...state.options,open:false}
+      },2000)
+    },
   },
 });
 
 export const selectAlertOptions = (state) => state.alert.options;
-export const { updateAlert } = alertSlice.actions;
+export const { updateAlert,closeAlert } = alertSlice.actions;
 export default alertSlice.reducer;

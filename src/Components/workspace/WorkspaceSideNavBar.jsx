@@ -5,14 +5,21 @@ import { GoPlus } from "react-icons/go";
 import { CiSquarePlus, CiFileOn,CiViewTable,CiDatabase   } from "react-icons/ci";
 import { PiChartLineUp } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { openGlobalModal } from "../../store/workspace/GlobalModalSlice";
 
 
 const WorkSpaceSideNavBar = () => {
   const [activeTab, setActiveTab] = useState('Explorer');
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleTabClick = (tab) => {
     if(tab === 'Explorer') {
       navigate('')
+    }
+
+    if(tab == 'Reports') {
+      dispatch(openGlobalModal({open:true,component:'Reports'}))
     }
     setActiveTab(tab);
   };
